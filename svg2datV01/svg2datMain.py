@@ -36,7 +36,7 @@ while Restart:
     svgFileName = input('File name: ') #'Elevator_central rib'
     svgFileName = svgFileName + '.svg' #'Elevator_central rib.svg'    #File name of svg file.
 
-    Res = 100#int(input('What is your preferred resolution (points per unit length)? '))
+    Res = int(input('What is your preferred resolution (points per unit length)? '))
 
     svgFile = open(svgFileName,'r')             #Opening svg file.
     svgContLines = svgFile.read().split('\n')   #Reading file content and splitting by line.
