@@ -15,6 +15,8 @@ User interface through terminal.
 Removed packages.
 Increased the number of geometeries compatible.
 Allows more points to be generated.
+Patch:
+Fixed bugs and added scaling option for selig files.
 '''
 import matplotlib.pyplot as plt
 import numpy as np
@@ -156,6 +158,14 @@ while Restart:
 
     #### .dat file for selig format. ####
     elif OutputChoice == 'y' or OutputChoice == 'Y':
+        yscaling = input('Would you like to scale the y-axis? [y/n]  ')
+        if yscaling == 'y' or yscaling == 'Y':
+            yscaling = float(input('How much do you wish to scale the y-axis?(float)  '))
+        elif yscaling == 'n' or yscaling == 'N':
+            yscaling = 1
+        else:
+            pass
+        
         xmin = min(datPoints[:,0])
         xmax = max(datPoints[:,0])
         xavr = sum(datPoints[:,0])/len(datPoints)
@@ -189,6 +199,9 @@ while Restart:
         datPointsBottom = datPointsBottom[np.argsort(datPointsBottom[:,0])]
         #datPointsBottom = np.flip(datPointsBottom,axis=0)
         datPoints = np.vstack((datPointsTop,datPointsBottom))
+        datPoints = np.vstack((np.array([[1.0,0.0]]),datPoints))
+        datPoints = np.vstack((datPoints,np.array([[1.0,0.0]])))
+        datPoints = np.hstack((np.transpose([datPoints[:,0]]),np.transpose([datPoints[:,1]/yscaling])))
 
         datContLines = '' #'Auto-generated .dat file from .svg file by the name of ' + svgFileName + '\n'
 
